@@ -23,6 +23,21 @@ end
 
 ver = '5.3.3'
 
+function status(who)
+	local fileSettingsName = "shore_"..plr.Name..".txt"
+	local fileSettings = isfile(fileSettingsName)
+	if fileSettings then
+		local fileContent = readfile(fileSettingsName)
+		return fileContent
+	else
+		if plr.Name == "iki" then
+			return "TRUMAN"
+		else
+			return "NEUTRAL"
+		end
+	end
+end
+
 Players = game:GetService("Players")
 
 Holder = Instance.new("Frame")
@@ -5594,20 +5609,7 @@ function round(num, numDecimalPlaces)
 	return math.floor(num * mult + 0.5) / mult
 end
 
-function status(who)
-	local fileSettingsName = "shore_"..plr.Name..".txt"
-	local fileSettings = isfile(fileSettingsName)
-	if fileSettings then
-		local fileContent = readfile(fileSettingsName)
-		return fileContent
-	else
-		if plr.Name == "iki" then
-			return "TRUMAN"
-		else
-			return "NEUTRAL"
-		end
-	end
-end
+
 
 function ESP(plr)
 	task.spawn(function()
