@@ -3289,7 +3289,13 @@ local dupeCount = 1
 function CreateLabel(Name, Text)
 	if lastMessage == Name..Text then
 		dupeCount = dupeCount+1
-		lastLabel.Text = Time()..' - ['..Name..']: '..Text..' (x'..dupeCount..')'
+		local fileSettingsName = "shore_"..Name..".txt"
+		local sumaabc = (isfile(fileSettingsName) and readfile(fileSettingsName))
+		if isfile(fileSettingsName) == false then
+		    lastLabel.Text = Time()..' - ['..Name..']: '..Text..' (x'..dupeCount..')'
+		else
+		    lastLabel.Text = Time()..' - <b>['..Name..'] {'..sumaabc..'}</b>: '..Text..' (x'..dupeCount..')'
+		end
 	else
 		if dupeCount > 1 then dupeCount = 1 end
 		if #scroll_2:GetChildren() >= 2546 then
@@ -3310,7 +3316,14 @@ function CreateLabel(Name, Text)
 		tl.Name = Name
 		tl.Parent = scroll_2
 		tl.ZIndex = 10
-		tl.Text = Time().." - ["..Name.."]: "..Text
+		local fileSettingsName = "shore_"..Name..".txt"
+		local sumaabc = (isfile(fileSettingsName) and readfile(fileSettingsName))
+		if isfile(fileSettingsName) == false then
+		    tl.Text = Time().." - ["..Name.."]: "..Text
+		else
+		    tl.Text = Time().." - <b>["..Name.."] {"..sumaabc.."}</b>: "..Text
+		end
+	--1020	tl.Text = Time().." - <b>["..Name.."] {"..sumaabc.."}</b>: "..Text
 		tl.Size = UDim2.new(0,322,0,84)
 		tl.BackgroundTransparency = 1
 		tl.BorderSizePixel = 0
@@ -3322,6 +3335,7 @@ function CreateLabel(Name, Text)
 		tl.TextWrapped = true
 		tl.TextXAlignment = "Left"
 		tl.TextYAlignment = "Top"
+		tl.RichText =true
 		tl.TextColor3 = currentText1
 		tl.Size = UDim2.new(0,322,0,tl.TextBounds.Y)
 		table.insert(text1,tl)
