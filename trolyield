@@ -23,21 +23,6 @@ end
 
 ver = '5.3.3'
 
-function status(who)
-	local fileSettingsName = "shore_"..plr.Name..".txt"
-	local fileSettings = isfile(fileSettingsName)
-	if fileSettings then
-		local fileContent = readfile(fileSettingsName)
-		return fileContent
-	else
-		if plr.Name == "iki" then
-			return "TRUMAN"
-		else
-			return "NEUTRAL"
-		end
-	end
-end
-
 Players = game:GetService("Players")
 
 Holder = Instance.new("Frame")
@@ -5690,8 +5675,9 @@ function ESP(plr)
 					if COREGUI:FindFirstChild(plr.Name..'_ESP') then
 						if plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid') and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChild('Humanoid') then
 							local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - getRoot(plr.Character).Position).magnitude)
-							
-							TextLabel.Text = 'Name: '..plr.Name..' | Health: '..round(plr.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | Studs: '..pos
+							local fileSettingsName = "shore_"..plr.Name..".txt"
+							local sumaabc = (isfile(fileSettingsName) and readfile(fileSettingsName)) or "NEUTRAL"
+							TextLabel.Text = 'Name: '..plr.Name..' | Health: '..round(plr.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | Studs: '..pos .. ' | Status: '.. sumaabc
 						end
 					else
 						teamChange:Disconnect()
@@ -5844,7 +5830,7 @@ function Locate(plr)
 					if COREGUI:FindFirstChild(plr.Name..'_LC') then
 						if plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid') and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChild('Humanoid') then
 							local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - getRoot(plr.Character).Position).magnitude)
-							TextLabel.Text = 'Name: '..plr.Name..' | Health: '..round(plr.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | Studs: '..pos .. ' | Status: '..'a'--status(plr)
+							TextLabel.Text = 'Name: '..plr.Name..' | Health: '..round(plr.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | Studs: '..pos 
 						end
 					else
 						teamChange:Disconnect()
