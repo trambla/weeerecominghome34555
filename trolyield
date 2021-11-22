@@ -3294,7 +3294,11 @@ function CreateLabel(Name, Text)
 		if isfile(fileSettingsName) == false then
 		    lastLabel.Text = Time()..' - ['..Name..']: '..Text..' (x'..dupeCount..')'
 		else
+		    if readfile(fileSettingsName) == "RED NOTICE" then
+		    lastLabel.Text = Time()..' - <font color="rgb(212,52,45)"><b>['..Name..'] {'..sumaabc..'}</b></font>: '..Text..' (x'..dupeCount..')'
+		    else
 		    lastLabel.Text = Time()..' - <b>['..Name..'] {'..sumaabc..'}</b>: '..Text..' (x'..dupeCount..')'
+		    end
 		end
 	else
 		if dupeCount > 1 then dupeCount = 1 end
@@ -5633,7 +5637,12 @@ function ESP(plr)
 					a.ZIndex = 10
 					a.Size = n.Size
 					a.Transparency = 0.3
+					local sumaabc = (isfile(fileSettingsName) and readfile(fileSettingsName)) or "NEUTRAL"
+					if sumaabc == "RED NOTICE" then
+					a.Color = Color3.fromRGB(212,52,45)
+					else
 					a.Color = plr.TeamColor
+					end
 				end
 			end
 			if plr.Character and plr.Character:FindFirstChild('Head') then
