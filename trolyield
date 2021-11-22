@@ -3295,7 +3295,7 @@ function CreateLabel(Name, Text)
 		    lastLabel.Text = Time()..' - ['..Name..']: '..Text..' (x'..dupeCount..')'
 		else
 		    if readfile(fileSettingsName) == "RED NOTICE" then
-		    lastLabel.Text = Time()..' - <font color="rgb(212,52,45)"><b>['..Name..'] {'..sumaabc..'}</b></font>: '..Text..' (x'..dupeCount..')'
+		    lastLabel.Text = Time()..' - <font color="#D4342A"><b>['..Name..'] {'..sumaabc..'}</font></b>: '..Text..' (x'..dupeCount..')'
 		    else
 		    lastLabel.Text = Time()..' - <b>['..Name..'] {'..sumaabc..'}</b>: '..Text..' (x'..dupeCount..')'
 		    end
@@ -3325,7 +3325,12 @@ function CreateLabel(Name, Text)
 		if isfile(fileSettingsName) == false then
 		    tl.Text = Time().." - ["..Name.."]: "..Text
 		else
+		    if sumaabc == "RED NOTICE" then
+		        --lastLabel.Text = Time()..' - <font color="rgb(212,52,45)"><b>['..Name..'] {'..sumaabc..'}</b></font>: '..Text..' (x'..dupeCount..')'
+		       tl.Text = Time().." - <font color='#D4342A'><b>["..Name.."] {"..sumaabc.."}</b></font>: "..Text
+		       else
 		    tl.Text = Time().." - <b>["..Name.."] {"..sumaabc.."}</b>: "..Text
+		   end
 		end
 	--1020	tl.Text = Time().." - <b>["..Name.."] {"..sumaabc.."}</b>: "..Text
 		tl.Size = UDim2.new(0,322,0,84)
@@ -5623,10 +5628,13 @@ function ESP(plr)
 		end
 		wait()
 		if plr.Character and plr.Name ~= Players.LocalPlayer.Name and not COREGUI:FindFirstChild(plr.Name..'_ESP') then
+			local fileSettingsName = "shore_"..plr.Name..".txt"
+			local sumaabc = (isfile(fileSettingsName) and readfile(fileSettingsName)) or "NEUTRAL"
 			local ESPholder = Instance.new("Folder")
 			ESPholder.Name = plr.Name..'_ESP'
 			ESPholder.Parent = COREGUI
 			repeat wait(1) until plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid')
+			if sumaabc == "RED NOTICE" then
 			for b,n in pairs (plr.Character:GetChildren()) do
 				if (n:IsA("BasePart")) then
 					local a = Instance.new("BoxHandleAdornment")
@@ -5637,13 +5645,31 @@ function ESP(plr)
 					a.ZIndex = 10
 					a.Size = n.Size
 					a.Transparency = 0.3
-					local sumaabc = (isfile(fileSettingsName) and readfile(fileSettingsName)) or "NEUTRAL"
-					if sumaabc == "RED NOTICE" then
-					a.Color = Color3.fromRGB(212,52,45)
-					else
-					a.Color = plr.TeamColor
-					end
+				--	if sumaabc == "RED NOTICE" then
+					a.Color = BrickColor.new("Maroon")
+					--else
+				--	a.Color = plr.TeamColor
+				--	end
 				end
+			end
+			else
+			    for b,n in pairs (plr.Character:GetChildren()) do
+				if (n:IsA("BasePart")) then
+					local a = Instance.new("BoxHandleAdornment")
+					a.Name = plr.Name
+					a.Parent = ESPholder
+					a.Adornee = n
+					a.AlwaysOnTop = true
+					a.ZIndex = 10
+					a.Size = n.Size
+					a.Transparency = 0.3
+				--	if sumaabc == "RED NOTICE" then
+				--	a.Color = Color3.fromRGB(212,1,1)
+					--else
+					a.Color = plr.TeamColor
+				--	end
+				end
+			end
 			end
 			if plr.Character and plr.Character:FindFirstChild('Head') then
 				local BillboardGui = Instance.new("BillboardGui")
